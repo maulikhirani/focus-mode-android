@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Focus Mode</string>
+    <string name="focus_mode_settings">Focus Mode Settings</string>
+    <string name="enable_focus_mode">Enable Focus Mode</string>
+    <string name="the_following_settings_will_be_applied_when_focus_mode_will_be_turned_on">The following settings will be applied when focus mode will be turned on.</string>
+    <string name="select">Select</string>
+    <string name="end_time">End Time</string>
+    <string name="start_time">Start Time</string>
+    <string name="turn_off_notifications">Turn off notifications</string>
+    <string name="enable_silent_mode">Enable Silent mode</string>
+    <string name="save">Save</string>
+</resources>

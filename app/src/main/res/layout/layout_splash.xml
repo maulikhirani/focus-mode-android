@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/logoAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_200sdp"
+            app:layout_constraintBottom_toTopOf="@+id/appTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39999998"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/arrow" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appTitle"
+            android:text="@string/app_name"
+            app:fontFamily="@font/anton"
+            android:textSize="@dimen/_22sdp"
+            android:textColor="@color/primaryTextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoAnim" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
