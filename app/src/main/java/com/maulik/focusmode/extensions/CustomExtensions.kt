@@ -47,10 +47,13 @@ fun View.playAnimation(
     startAnimation(this)
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 fun Context.isNotificationPermissionAllowed(): Boolean {
     val manager: NotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-    return manager.isNotificationPolicyAccessGranted
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        manager.isNotificationPolicyAccessGranted
+    } else {
+        true
+    }
 }
 
 fun Context.showToast(message: String, showLong: Boolean = false) {

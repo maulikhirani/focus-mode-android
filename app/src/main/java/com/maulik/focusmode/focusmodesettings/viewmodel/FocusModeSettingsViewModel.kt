@@ -5,8 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.maulik.focusmode.R
+import com.maulik.focusmode.util.TIME_FORMAT_12_HR
+import com.maulik.focusmode.util.getFocusModePref
+import com.maulik.focusmode.util.saveFocusModePref
+import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 import java.util.Calendar.*
 
@@ -26,18 +30,18 @@ class FocusModeSettingsViewModel(application: Application) : AndroidViewModel(ap
     }
 
     private fun formatTime(input: Date?): String {
-        val simpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val simpleDateFormat = SimpleDateFormat(TIME_FORMAT_12_HR, Locale.getDefault())
         input?.let { return simpleDateFormat.format(it) }
         return "Select"
     }
 
-    fun getSelectedHour(liveData: MutableLiveData<Date>): Int {
+    fun getSelectedHour(liveData: MutableLiveData<Date>, isEndTime: Boolean = false): Int {
         val calendar = getInstance()
         val date = liveData.value
         if (date != null) {
             calendar.time = date
         } else {
-           return 10
+           return if (isEndTime) 19 else 10
         }
         return calendar[HOUR_OF_DAY]
     }
@@ -51,5 +55,43 @@ class FocusModeSettingsViewModel(application: Application) : AndroidViewModel(ap
            return 0
         }
         return calendar[MINUTE]
+    }
+
+    fun validateAndGetErrorMessage(): String? {
+        val startTime = startTimeLiveData.value
+        val endTime = endTimeLiveData.value
+        if (startTime != null && endTime != null) {
+            if (endTime == startTime || endTime.before(startTime)) {
+                return getApplication<Application>().getString(R.string.error_wrong_time)
+            }
+        } else {
+            return getApplication<Application>().getString(R.string.error_select_time)
+        }
+        return null
+    }
+
+    fun saveSettings() {
+        val application = getApplication<Application>()
+        application.saveFocusModePref(startTimeString.value,
+            endTimeString.value,
+            notificationsDisabled.value,
+            silentModeEnabled.value)
+    }
+
+    fun setDataFromPreference() {
+        val application = getApplication<Application>()
+        val (startTime, endTime, isNotificationDisabled, isSilentEnabled) = application.getFocusModePref()
+
+        val simpleDateFormat = SimpleDateFormat(TIME_FORMAT_12_HR, Locale.getDefault())
+        if (startTime != null && endTime != null) {
+            try {
+                startTimeLiveData.value = simpleDateFormat.parse(startTime)
+                endTimeLiveData.value = simpleDateFormat.parse(endTime)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+        }
+        notificationsDisabled.value = isNotificationDisabled
+        silentModeEnabled.value = isSilentEnabled
     }
 }

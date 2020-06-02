@@ -1,13 +1,13 @@
 package com.maulik.focusmode.focusmodesettings.ui
 
-import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
+import android.widget.CompoundButton
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -34,17 +34,19 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
         binding.settingsViewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.setDataFromPreference()
+
         viewModel.startTimeString.observe(
             this,
             androidx.lifecycle.Observer {
-                binding.tvStartTime.setText(it)
+                binding.tvStartTime.text = it
             }
         )
 
         viewModel.endTimeString.observe(
             this,
             androidx.lifecycle.Observer {
-                binding.tvEndTime.setText(it)
+                binding.tvEndTime.text = it
             }
         )
 
@@ -55,32 +57,45 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun setupNotifications() {
-        binding.switchNotifications.setOnClickListener {
-            val isChecked = binding.switchNotifications.isChecked
-            val isPermissionAllowed = isNotificationPermissionAllowed()
-
-            if (isChecked && !isPermissionAllowed) {
-                showToast(getString(R.string.error_notifications))
-                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                startActivityForResult(intent, 1)
-                binding.switchNotifications.isChecked = false
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        if (!isNotificationPermissionAllowed()) viewModel.notificationsDisabled.value = false
     }
 
-    @SuppressLint("NewApi")
+    private fun setupNotifications() {
+
+        viewModel.notificationsDisabled.observe(this, androidx.lifecycle.Observer {
+            binding.switchNotifications.isChecked = it
+        })
+
+        binding.switchNotifications.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if (isChecked && !isNotificationPermissionAllowed()) {
+                    binding.switchNotifications.setOnCheckedChangeListener(null)
+                    viewModel.notificationsDisabled.value = false
+                    binding.switchNotifications.setOnCheckedChangeListener(this)
+
+                    showToast(getString(R.string.error_notifications))
+                    val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                    startActivityForResult(intent, 1)
+                } else {
+                    viewModel.notificationsDisabled.value = isChecked
+                }
+            }
+        })
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && isNotificationPermissionAllowed()) {
-            binding.switchNotifications.isChecked = true
+            viewModel.notificationsDisabled.value = true
         }
     }
 
     override fun onStartTimeClick() {
         val timePicker = TimePickerDialog(this,
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val calendar = Calendar.getInstance()
                 calendar[HOUR_OF_DAY] = hourOfDay
                 calendar[MINUTE] = minute
@@ -94,12 +109,12 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
         if (viewModel.startTimeLiveData.value != null) {
             val timePicker = TimePickerDialog(
                 this,
-                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     val calendar = Calendar.getInstance()
                     calendar[HOUR_OF_DAY] = hourOfDay
                     calendar[MINUTE] = minute
                     viewModel.endTimeLiveData.value = calendar.time
-                }, viewModel.getSelectedHour(viewModel.endTimeLiveData),
+                }, viewModel.getSelectedHour(viewModel.endTimeLiveData, true),
                 viewModel.getSelectedMin(viewModel.endTimeLiveData), false
             )
             timePicker.show()
@@ -109,6 +124,13 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
     }
 
     override fun onSaveClick() {
-
+        val errorMessage = viewModel.validateAndGetErrorMessage()
+        if (!TextUtils.isEmpty(errorMessage)) {
+            showToast(errorMessage.toString())
+        } else {
+            viewModel.saveSettings()
+            showToast("Preference saved successfully")
+            finish()
+        }
     }
 }
