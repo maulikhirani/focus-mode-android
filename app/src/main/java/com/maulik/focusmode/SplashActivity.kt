@@ -5,9 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.maulik.focusmode.databinding.LayoutSplashBinding
-import com.maulik.focusmode.extensions.playAnimation
 import com.maulik.focusmode.extensions.startActivityAndFinish
-import render.animations.Attention
+import com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsActivity
 import render.animations.Bounce
 import render.animations.Render
 
@@ -25,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                startActivityAndFinish<MainActivity>()
+                startActivityAndFinish<FocusModeSettingsActivity>()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

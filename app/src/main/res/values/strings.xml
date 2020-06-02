@@ -9,4 +9,6 @@
     <string name="turn_off_notifications">Turn off notifications</string>
     <string name="enable_silent_mode">Enable Silent mode</string>
     <string name="save">Save</string>
+    <string name="error_select_start_time">Please select start time first</string>
+    <string name="error_notifications">Please enable Focus Mode from notifications settings</string>
 </resources>

@@ -1,193 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@android:color/white"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <View
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/header_background"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <data>
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:paddingStart="@dimen/activity_margin"
-        android:paddingEnd="@dimen/activity_margin"
-        android:textSize="@dimen/_28sdp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anton"
-        android:text="@string/focus_mode_settings"
-        android:textColor="@color/secondaryTextColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="eventHandler"
+            type="com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsEventHandler" />
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="0dp"
-        android:padding="@dimen/_8sdp"
-        android:text="@string/the_following_settings_will_be_applied_when_focus_mode_will_be_turned_on"
-        android:paddingStart="@dimen/activity_margin"
-        android:paddingEnd="@dimen/activity_margin"
-        android:textSize="@dimen/_12sdp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/secondaryTextColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        <variable
+            name="settingsViewModel"
+            type="com.maulik.focusmode.focusmodesettings.viewmodel.FocusModeSettingsViewModel" />
+    </data>
 
-    <ScrollView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
+        <View
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/header_background"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
-          android:paddingBottom="@dimen/_70sdp"
-          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:fontFamily="@font/anton"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:text="@string/focus_mode_settings"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/_28sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-          <com.google.android.material.card.MaterialCardView
-              android:id="@+id/cardStartTime"
-              app:shapeAppearanceOverlay="@style/CardShape"
-              android:foreground="?selectableItemBackground"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintEnd_toStartOf="@+id/cardEndTime"
-              app:layout_constraintStart_toStartOf="parent"
-              android:layout_width="0dp"
-              app:cardElevation="@dimen/_10sdp"
-              android:layout_marginStart="@dimen/activity_margin"
-              android:layout_marginTop="@dimen/activity_margin"
-              android:layout_marginBottom="@dimen/activity_margin"
-              android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:padding="@dimen/_8sdp"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:text="@string/the_following_settings_will_be_applied_when_focus_mode_will_be_turned_on"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-              <LinearLayout
-                  android:padding="@dimen/activity_margin"
-                  android:gravity="center_horizontal"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/start_time"
-                      android:textColor="@color/primaryTextColor"
-                      android:fontFamily="@font/anton"
-                      android:textSize="@dimen/_18sdp"/>
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/select"
-                      android:layout_marginTop="@dimen/_8sdp"
-                      android:textColor="@color/primaryTextColor"
-                      android:fontFamily="@font/montserrat"
-                      android:textSize="@dimen/_12sdp"/>
-
-              </LinearLayout>
-
-          </com.google.android.material.card.MaterialCardView>
-
-          <com.google.android.material.card.MaterialCardView
-              android:id="@+id/cardEndTime"
-              app:shapeAppearanceOverlay="@style/CardShape"
-              android:foreground="?selectableItemBackground"
-              app:layout_constraintStart_toEndOf="@+id/cardStartTime"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              android:layout_width="0dp"
-              app:cardElevation="@dimen/_10sdp"
-              android:layout_marginStart="@dimen/activity_margin"
-              android:layout_marginEnd="@dimen/activity_margin"
-              android:layout_marginTop="@dimen/activity_margin"
-              android:layout_marginBottom="@dimen/activity_margin"
-              android:layout_height="wrap_content">
-
-              <LinearLayout
-                  android:padding="@dimen/activity_margin"
-                  android:gravity="center_horizontal"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/end_time"
-                      android:textColor="@color/primaryTextColor"
-                      android:fontFamily="@font/anton"
-                      android:textSize="@dimen/_18sdp"/>
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/select"
-                      android:layout_marginTop="@dimen/_8sdp"
-                      android:textColor="@color/primaryTextColor"
-                      android:fontFamily="@font/montserrat"
-                      android:textSize="@dimen/_12sdp"/>
-
-              </LinearLayout>
-
-          </com.google.android.material.card.MaterialCardView>
-
-          <com.google.android.material.switchmaterial.SwitchMaterial
-              android:id="@+id/switchNotifications"
-              android:layout_marginTop="@dimen/_8sdp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/cardStartTime"
-              android:checked="true"
-              android:padding="@dimen/activity_margin"
-              android:text="@string/turn_off_notifications"
-              android:fontFamily="@font/montserrat"
-              android:textSize="@dimen/_14sdp"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"/>
-
-          <com.google.android.material.switchmaterial.SwitchMaterial
-              android:id="@+id/switchRing"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/switchNotifications"
-              android:padding="@dimen/activity_margin"
-              android:checked="true"
-              android:text="@string/enable_silent_mode"
-              android:fontFamily="@font/montserrat"
-              android:textSize="@dimen/_14sdp"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"/>
-
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:insetTop="0dp"
-        app:srcCompat="@drawable/ic_check"
-        app:tint="@color/secondaryTextColor"
-        app:fabSize="normal"
-        app:fabCustomSize="@dimen/_60sdp"
-        android:insetBottom="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/primaryDarkColor"
-        app:shapeAppearanceOverlay="@style/FabShape"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_70sdp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginTop="@dimen/activity_margin"
+                    android:layout_marginBottom="@dimen/activity_margin"
+                    android:foreground="?selectableItemBackground"
+                    android:onClick="@{() -> eventHandler.onStartTimeClick()}"
+                    app:cardElevation="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/cardEndTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CardShape">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="@dimen/activity_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/anton"
+                            android:text="@string/start_time"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/_18sdp" />
+
+                        <TextView
+                            android:id="@+id/tvStartTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/select"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginTop="@dimen/activity_margin"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    android:layout_marginBottom="@dimen/activity_margin"
+                    android:foreground="?selectableItemBackground"
+                    android:onClick="@{() -> eventHandler.onEndTimeClick()}"
+                    app:cardElevation="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardStartTime"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CardShape">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="@dimen/activity_margin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/anton"
+                            android:text="@string/end_time"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/_18sdp" />
+
+                        <TextView
+                            android:id="@+id/tvEndTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/select"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchNotifications"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:checked="true"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="@dimen/activity_margin"
+                    android:text="@string/turn_off_notifications"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardStartTime" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchRing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="@dimen/activity_margin"
+                    android:text="@string/enable_silent_mode"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/switchNotifications" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/primaryDarkColor"
+            app:fabCustomSize="@dimen/_60sdp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/FabShape"
+            app:srcCompat="@drawable/ic_check"
+            app:tint="@color/secondaryTextColor" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
