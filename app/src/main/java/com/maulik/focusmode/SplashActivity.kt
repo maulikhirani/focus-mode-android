@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.maulik.focusmode.dashboard.ui.DashboardActivity
 import com.maulik.focusmode.databinding.LayoutSplashBinding
 import com.maulik.focusmode.extensions.startActivityAndFinish
 import com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsActivity
@@ -24,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                startActivityAndFinish<FocusModeSettingsActivity>()
+                startActivityAndFinish<DashboardActivity>()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

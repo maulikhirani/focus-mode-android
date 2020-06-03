@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="eventHandler"
+            type="com.maulik.focusmode.dashboard.ui.DashboardEventHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/settingsAnim"
+            app:lottie_autoPlay="true"
+            android:layout_centerHorizontal="true"
+            app:lottie_repeatMode="reverse"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSetup"
+            android:onClick="@{() -> eventHandler.onSettingsClick()}"
+            android:layout_below="@+id/settingsAnim"
+            android:layout_centerHorizontal="true"
+            android:text="@string/setup_focus_mode"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/montserrat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/focusAnim"
+            app:lottie_autoPlay="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btnSetup"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:lottie_repeatMode="reverse"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/focus_man"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp" />
+
+
+    </RelativeLayout>
+</layout>

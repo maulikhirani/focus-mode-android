@@ -72,4 +72,6 @@ dependencies {
 
     implementation "androidx.preference:preference-ktx:$preference_version"
 
+    implementation 'com.evernote:android-job:1.4.2'
+
 }

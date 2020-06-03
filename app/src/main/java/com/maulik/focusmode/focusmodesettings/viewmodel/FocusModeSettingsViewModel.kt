@@ -58,9 +58,14 @@ class FocusModeSettingsViewModel(application: Application) : AndroidViewModel(ap
     }
 
     fun validateAndGetErrorMessage(): String? {
-        val startTime = startTimeLiveData.value
-        val endTime = endTimeLiveData.value
+        val simpleDateFormat = SimpleDateFormat(TIME_FORMAT_12_HR, Locale.getDefault())
+        var startTime = startTimeLiveData.value
+        var endTime = endTimeLiveData.value
         if (startTime != null && endTime != null) {
+
+            startTime = simpleDateFormat.parse(simpleDateFormat.format(startTime))
+            endTime = simpleDateFormat.parse(simpleDateFormat.format(endTime))
+
             if (endTime == startTime || endTime.before(startTime)) {
                 return getApplication<Application>().getString(R.string.error_wrong_time)
             }

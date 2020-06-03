@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">Focus Mode</string>
     <string name="focus_mode_settings">Focus Mode Settings</string>
-    <string name="enable_focus_mode">Enable Focus Mode</string>
     <string name="the_following_settings_will_be_applied_when_focus_mode_will_be_turned_on">The following settings will be applied when focus mode will be turned on.</string>
     <string name="select">Select</string>
     <string name="end_time">End Time</string>
     <string name="start_time">Start Time</string>
-    <string name="turn_off_notifications">Turn off notifications</string>
-    <string name="enable_silent_mode">Enable Silent mode</string>
+    <string name="turn_off_notifications">Turn off notification sounds</string>
+    <string name="enable_silent_mode">Turn off Silent mode for calls</string>
     <string name="save">Save</string>
     <string name="error_select_start_time">Please select start time first</string>
     <string name="error_notifications">Please enable Focus Mode from the DND settings</string>
     <string name="error_wrong_time">End time must be after the Start time</string>
     <string name="error_select_time">Please select Start and End times</string>
+    <string name="focus_mode_desc">Focus mode lets you turn off the distractions while you\'re doing something that needs focus. You can set the schedule for focus mode from the settings.</string>
+    <string name="setup_focus_mode">Setup Focus Mode</string>
+    <string name="enable_focus_mode">Enable Focus Mode</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="focus_mode_started">Focus mode started</string>
+    <string name="focus_mode_ended">Focus mode ended</string>
 </resources>
