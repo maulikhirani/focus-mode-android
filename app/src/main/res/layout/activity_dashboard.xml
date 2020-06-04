@@ -75,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvKotlin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
@@ -114,6 +114,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/switchFocusMode" />
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/focusYoga"
+                    app:lottie_autoPlay="true"
+                    android:layout_centerHorizontal="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnConfigure"
+                    android:layout_marginTop="@dimen/_32sdp"
+                    app:lottie_repeatMode="reverse"
+                    app:lottie_loop="true"
+                    android:visibility="gone"
+                    app:lottie_rawRes="@raw/focus_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_180sdp" />
+
                 <include
                     android:id="@+id/view_first_setup"
                     layout="@layout/enable_settings"
@@ -135,6 +150,21 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvKotlin"
+            android:text="@string/_30daysofkotlin"
+            app:drawableStartCompat="@drawable/kotlin"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_20sdp"
+            android:padding="@dimen/_8sdp"
+            android:drawablePadding="@dimen/_8sdp"
+            android:fontFamily="@font/montserrat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

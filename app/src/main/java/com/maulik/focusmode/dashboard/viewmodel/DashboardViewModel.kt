@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.maulik.focusmode.extensions.toggleDnd
 import com.maulik.focusmode.extensions.toggleSilentMode
 import com.maulik.focusmode.util.backgroundjob.FocusModeStartStopJob
+import com.maulik.focusmode.util.isFocusModeEnabled
+import com.maulik.focusmode.util.toggleFocusMode
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
 
     fun toggleFocusMode(enable: Boolean) {
         FocusModeStartStopJob.cancelJob()
+        getApplication<Application>().toggleFocusMode(enable)
         if (enable) {
             FocusModeStartStopJob.scheduleJob(getApplication())
         } else {
@@ -20,6 +23,6 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     val focusModeSettingsValid: MutableLiveData<Boolean> = MutableLiveData()
-    val focusModeEnabled: MutableLiveData<Boolean> = MutableLiveData()
+    val focusModeEnabled: MutableLiveData<Boolean> = MutableLiveData(application.isFocusModeEnabled())
 
 }

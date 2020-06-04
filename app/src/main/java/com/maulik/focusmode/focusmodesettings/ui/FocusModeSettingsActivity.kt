@@ -15,7 +15,8 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import com.maulik.focusmode.R
 import com.maulik.focusmode.databinding.FocusModeSettingsBinding
-import com.maulik.focusmode.extensions.isNotificationPermissionAllowed
+import com.maulik.focusmode.extensions.isNotificationListenerPermissionAllowed
+import com.maulik.focusmode.extensions.isSilentModePermissionAllowed
 import com.maulik.focusmode.extensions.showToast
 import com.maulik.focusmode.focusmodesettings.viewmodel.FocusModeSettingsViewModel
 import java.util.*
@@ -60,9 +61,11 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
 
     override fun onResume() {
         super.onResume()
-        if (!isNotificationPermissionAllowed()) {
-            viewModel.notificationsDisabled.value = false
+        if (!isSilentModePermissionAllowed()) {
             viewModel.silentModeEnabled.value = false
+        }
+        if (!isNotificationListenerPermissionAllowed()) {
+            viewModel.notificationsDisabled.value = false
         }
     }
 
@@ -79,25 +82,39 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
             @RequiresApi(Build.VERSION_CODES.M)
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 val switch = buttonView as SwitchCompat
+                var permissionRequired = false
+                if (isChecked) {
+                    if (!isSilentModePermissionAllowed() || !isNotificationListenerPermissionAllowed()) {
+                        permissionRequired = true
+                        switch.setOnCheckedChangeListener(null)
+                        showToast(getString(R.string.error_notifications), true)
+                        if (switch.id == R.id.switchNotifications) {
+                            viewModel.notificationsDisabled.value = false
+                        } else {
+                            viewModel.silentModeEnabled.value = false
+                        }
+                        switch.setOnCheckedChangeListener(this)
 
-                if (isChecked && !isNotificationPermissionAllowed()) {
-                    switch.setOnCheckedChangeListener(null)
-                    if (switch.id == R.id.switchNotifications) {
-                        viewModel.notificationsDisabled.value = false
-                    } else {
-                        viewModel.silentModeEnabled.value = false
+                        if (!isSilentModePermissionAllowed()) {
+                            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                            startActivityForResult(
+                                intent,
+                                if (switch.id == R.id.switchNotifications) 1 else 2
+                            )
+                        } else if (!isNotificationListenerPermissionAllowed()) {
+                            val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                            startActivityForResult(intent, 1)
+                        }
                     }
-                    switch.setOnCheckedChangeListener(this)
 
-                    showToast(getString(R.string.error_notifications))
-                    val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                    startActivityForResult(intent, 1)
-                } else {
-                    if (switch.id == R.id.switchNotifications) {
-                        viewModel.notificationsDisabled.value = isChecked
-                    } else {
-                        viewModel.silentModeEnabled.value = isChecked
+                    if (!permissionRequired) {
+                        if (switch.id == R.id.switchNotifications) {
+                            viewModel.notificationsDisabled.value = isChecked
+                        } else {
+                            viewModel.silentModeEnabled.value = isChecked
+                        }
                     }
+
                 }
             }
         }
@@ -108,20 +125,24 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && isNotificationPermissionAllowed()) {
+        if (requestCode == 1 && isNotificationListenerPermissionAllowed()) {
             viewModel.notificationsDisabled.value = true
+        } else if (requestCode == 2 && isSilentModePermissionAllowed()) {
+            viewModel.silentModeEnabled.value = true
         }
     }
 
     override fun onStartTimeClick() {
-        val timePicker = TimePickerDialog(this,
+        val timePicker = TimePickerDialog(
+            this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val calendar = Calendar.getInstance()
                 calendar[HOUR_OF_DAY] = hourOfDay
                 calendar[MINUTE] = minute
                 viewModel.startTimeLiveData.value = calendar.time
-            }, viewModel.getSelectedHour(viewModel.startTimeLiveData), 
-            viewModel.getSelectedMin(viewModel.startTimeLiveData), false)
+            }, viewModel.getSelectedHour(viewModel.startTimeLiveData),
+            viewModel.getSelectedMin(viewModel.startTimeLiveData), false
+        )
         timePicker.show()
     }
 

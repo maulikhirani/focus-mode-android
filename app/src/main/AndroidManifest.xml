@@ -27,6 +27,13 @@
         <activity
             android:name=".focusmodesettings.ui.FocusModeSettingsActivity"
             android:theme="@style/AppTheme" />
+        <service android:name=".MyNotificationListenerService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

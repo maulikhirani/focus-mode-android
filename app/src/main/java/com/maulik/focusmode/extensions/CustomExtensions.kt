@@ -13,6 +13,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.AnimRes
+import androidx.core.app.NotificationManagerCompat
+import com.maulik.focusmode.util.disableNotifications
 
 inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
     val intent = Intent(this, T::class.java)
@@ -47,13 +49,18 @@ fun View.playAnimation(
     startAnimation(this)
 }
 
-fun Context.isNotificationPermissionAllowed(): Boolean {
+fun Context.isSilentModePermissionAllowed(): Boolean {
     val manager: NotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         manager.isNotificationPolicyAccessGranted
     } else {
         true
     }
+}
+
+fun Context.isNotificationListenerPermissionAllowed(): Boolean {
+    val enabledListenerPackages = NotificationManagerCompat.getEnabledListenerPackages(this)
+    return enabledListenerPackages.contains(this.packageName)
 }
 
 fun Context.showToast(message: String, showLong: Boolean = false) {
@@ -65,15 +72,14 @@ fun Context.showToast(message: String, showLong: Boolean = false) {
 }
 
 fun Context.toggleDnd(enable: Boolean) {
-    val manager: NotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isNotificationPermissionAllowed()) {
-        manager.setInterruptionFilter(if (enable) NotificationManager.INTERRUPTION_FILTER_NONE else NotificationManager.INTERRUPTION_FILTER_ALL)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isNotificationListenerPermissionAllowed()) {
+        if (enable) disableNotifications(enable) else disableNotifications(false)
     }
 }
 
 fun Context.toggleSilentMode(enable: Boolean) {
     val manager: AudioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-    if (isNotificationPermissionAllowed()) {
+    if (isSilentModePermissionAllowed()) {
         manager.ringerMode =
             if (enable) AudioManager.RINGER_MODE_SILENT else AudioManager.RINGER_MODE_NORMAL
     }

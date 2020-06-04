@@ -9,7 +9,7 @@
     <string name="enable_silent_mode">Turn off Silent mode for calls</string>
     <string name="save">Save</string>
     <string name="error_select_start_time">Please select start time first</string>
-    <string name="error_notifications">Please enable Focus Mode from the DND settings</string>
+    <string name="error_notifications">Please enable Focus Mode from the settings</string>
     <string name="error_wrong_time">End time must be after the Start time</string>
     <string name="error_select_time">Please select Start and End times</string>
     <string name="focus_mode_desc">Focus mode lets you turn off the distractions while you\'re doing something that needs focus. You can set the schedule for focus mode from the settings.</string>
@@ -18,4 +18,5 @@
     <string name="welcome_to">Welcome to</string>
     <string name="focus_mode_started">Focus mode started</string>
     <string name="focus_mode_ended">Focus mode ended</string>
+    <string name="_30daysofkotlin">#30DaysOfKotlin</string>
 </resources>

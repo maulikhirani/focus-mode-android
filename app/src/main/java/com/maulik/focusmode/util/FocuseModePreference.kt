@@ -1,6 +1,8 @@
 package com.maulik.focusmode.util
 
 import android.content.Context
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
@@ -36,4 +38,31 @@ fun Context.getFocusModePref() : FocusModePreference {
         preferenceHelper.getBoolean(PREF_NOTIFICATION_DISABLED, false),
         preferenceHelper.getBoolean(PREF_SILENT_ENABLED, false)
     )
+}
+
+fun Context.toggleFocusMode(enable: Boolean) {
+    val preferenceHelper = PreferenceManager.getDefaultSharedPreferences(this)
+    preferenceHelper.edit {
+        putBoolean(PREF_FOCUS_MODE_ENABLED, enable)
+    }
+}
+
+fun Context.isFocusModeEnabled(): Boolean {
+    val preferenceHelper = PreferenceManager.getDefaultSharedPreferences(this)
+    return preferenceHelper.getBoolean(PREF_FOCUS_MODE_ENABLED, false)
+}
+
+fun Context.isNotificationDisabled() : Boolean {
+    val preferenceHelper = PreferenceManager.getDefaultSharedPreferences(this)
+    return preferenceHelper.getBoolean(PREF_NOTIFICATIONS_DISABLED, false)
+}
+
+fun Context.disableNotifications(b: Boolean) {
+    val preferenceHelper = PreferenceManager.getDefaultSharedPreferences(this)
+    preferenceHelper.edit {
+        putBoolean(PREF_NOTIFICATIONS_DISABLED, b)
+    }
+    if (b) {
+        NotificationManagerCompat.from(this).cancelAll()
+    }
 }
