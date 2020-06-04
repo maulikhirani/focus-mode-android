@@ -6,5 +6,4 @@ You can set the schedule for focus mode and turn on/off the silent mode and noti
 
 The app is built with clean design and material components as well as sleek animations.
 
-![Image of Focus Mode Screenshots]
-(https://dl3.pushbulletusercontent.com/47y1IjnwbkQDG25QzzpbnXHX7y8Tlpj2/InShot_20200604_174706892.jpg)
+![Image of Focus Mode Screenshots](https://dl3.pushbulletusercontent.com/47y1IjnwbkQDG25QzzpbnXHX7y8Tlpj2/InShot_20200604_174706892.jpg)
