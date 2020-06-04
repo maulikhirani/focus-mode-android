@@ -1,4 +1,4 @@
-package com.maulik.focusmode
+package com.maulik.focusmode.application
 
 import android.app.Application
 import com.evernote.android.job.JobManager

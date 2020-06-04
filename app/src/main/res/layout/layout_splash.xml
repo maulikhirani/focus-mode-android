@@ -32,5 +32,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoAnim" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appDeveloper"
+            android:text="@string/developed_by_maulik_hirani"
+            app:fontFamily="@font/montserrat"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/primaryTextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

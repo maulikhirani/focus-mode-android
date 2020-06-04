@@ -1,13 +1,12 @@
-package com.maulik.focusmode
+package com.maulik.focusmode.activity
 
 import android.animation.Animator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.maulik.focusmode.dashboard.ui.DashboardActivity
+import com.maulik.focusmode.R
 import com.maulik.focusmode.databinding.LayoutSplashBinding
-import com.maulik.focusmode.extensions.startActivityAndFinish
-import com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsActivity
+import com.maulik.focusmode.util.extensions.startActivityAndFinish
 import render.animations.Bounce
 import render.animations.Render
 
@@ -17,7 +16,9 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.layout_splash)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.layout_splash
+        )
 
         binding.logoAnim.addAnimatorListener(object : Animator.AnimatorListener {
 
@@ -38,6 +39,9 @@ class SplashActivity : AppCompatActivity() {
 
         val renderer = Render(this)
         renderer.setAnimation(Bounce().In(binding.appTitle))
+        renderer.start()
+
+        renderer.setAnimation(Bounce().InUp(binding.appDeveloper))
         renderer.start()
 
     }

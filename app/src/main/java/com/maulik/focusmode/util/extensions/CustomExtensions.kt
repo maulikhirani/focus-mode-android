@@ -1,4 +1,4 @@
-package com.maulik.focusmode.extensions
+package com.maulik.focusmode.util.extensions
 
 import android.app.Activity
 import android.app.NotificationManager

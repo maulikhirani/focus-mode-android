@@ -1,4 +1,4 @@
-package com.maulik.focusmode.focusmodesettings.viewmodel
+package com.maulik.focusmode.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

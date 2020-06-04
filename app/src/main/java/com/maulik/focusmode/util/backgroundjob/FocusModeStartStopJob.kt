@@ -6,8 +6,8 @@ import com.evernote.android.job.Job
 import com.evernote.android.job.JobManager
 import com.evernote.android.job.JobRequest
 import com.evernote.android.job.util.support.PersistableBundleCompat
-import com.maulik.focusmode.extensions.toggleDnd
-import com.maulik.focusmode.extensions.toggleSilentMode
+import com.maulik.focusmode.util.extensions.toggleDnd
+import com.maulik.focusmode.util.extensions.toggleSilentMode
 import com.maulik.focusmode.util.getFocusModePref
 import java.text.SimpleDateFormat
 import java.util.*

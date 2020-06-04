@@ -5,7 +5,7 @@
     <data>
         <variable
             name="eventHandler"
-            type="com.maulik.focusmode.dashboard.ui.DashboardEventHandler" />
+            type="com.maulik.focusmode.eventhandler.DashboardEventHandler" />
     </data>
 
     <RelativeLayout

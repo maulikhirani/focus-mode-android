@@ -1,10 +1,10 @@
-package com.maulik.focusmode.dashboard.viewmodel
+package com.maulik.focusmode.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.maulik.focusmode.extensions.toggleDnd
-import com.maulik.focusmode.extensions.toggleSilentMode
+import com.maulik.focusmode.util.extensions.toggleDnd
+import com.maulik.focusmode.util.extensions.toggleSilentMode
 import com.maulik.focusmode.util.backgroundjob.FocusModeStartStopJob
 import com.maulik.focusmode.util.isFocusModeEnabled
 import com.maulik.focusmode.util.toggleFocusMode

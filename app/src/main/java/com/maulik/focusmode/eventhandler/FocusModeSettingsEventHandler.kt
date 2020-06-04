@@ -1,4 +1,4 @@
-package com.maulik.focusmode.focusmodesettings.ui
+package com.maulik.focusmode.eventhandler
 
 interface FocusModeSettingsEventHandler {
     fun onStartTimeClick()

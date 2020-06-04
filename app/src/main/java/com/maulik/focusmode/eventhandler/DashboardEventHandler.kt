@@ -1,4 +1,4 @@
-package com.maulik.focusmode.dashboard.ui
+package com.maulik.focusmode.eventhandler
 
 interface DashboardEventHandler {
     fun onSettingsClick()

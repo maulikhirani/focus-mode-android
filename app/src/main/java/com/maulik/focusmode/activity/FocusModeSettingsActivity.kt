@@ -1,4 +1,4 @@
-package com.maulik.focusmode.focusmodesettings.ui
+package com.maulik.focusmode.activity
 
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -15,16 +15,18 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import com.maulik.focusmode.R
 import com.maulik.focusmode.databinding.FocusModeSettingsBinding
-import com.maulik.focusmode.extensions.isNotificationListenerPermissionAllowed
-import com.maulik.focusmode.extensions.isSilentModePermissionAllowed
-import com.maulik.focusmode.extensions.showToast
-import com.maulik.focusmode.focusmodesettings.viewmodel.FocusModeSettingsViewModel
+import com.maulik.focusmode.util.extensions.isNotificationListenerPermissionAllowed
+import com.maulik.focusmode.util.extensions.isSilentModePermissionAllowed
+import com.maulik.focusmode.util.extensions.showToast
+import com.maulik.focusmode.eventhandler.FocusModeSettingsEventHandler
+import com.maulik.focusmode.viewmodel.FocusModeSettingsViewModel
 import java.util.*
 import java.util.Calendar.HOUR_OF_DAY
 import java.util.Calendar.MINUTE
 
 
-class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHandler {
+class FocusModeSettingsActivity : AppCompatActivity(),
+    FocusModeSettingsEventHandler {
 
     private lateinit var binding: FocusModeSettingsBinding
     private val viewModel by viewModels<FocusModeSettingsViewModel>()

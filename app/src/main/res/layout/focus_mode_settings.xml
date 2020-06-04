@@ -6,11 +6,11 @@
 
         <variable
             name="eventHandler"
-            type="com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsEventHandler" />
+            type="com.maulik.focusmode.eventhandler.FocusModeSettingsEventHandler" />
 
         <variable
             name="settingsViewModel"
-            type="com.maulik.focusmode.focusmodesettings.viewmodel.FocusModeSettingsViewModel" />
+            type="com.maulik.focusmode.viewmodel.FocusModeSettingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,16 +8,16 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.maulik.focusmode.dashboard.viewmodel.DashboardViewModel" />
+            type="com.maulik.focusmode.viewmodel.DashboardViewModel" />
         <variable
             name="eventHandler"
-            type="com.maulik.focusmode.dashboard.ui.DashboardEventHandler" />
+            type="com.maulik.focusmode.eventhandler.DashboardEventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".dashboard.ui.DashboardActivity">
+        tools:context=".activity.DashboardActivity">
 
         <View
             android:id="@+id/header"

@@ -1,4 +1,4 @@
-package com.maulik.focusmode.dashboard.ui
+package com.maulik.focusmode.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,18 +8,16 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.maulik.focusmode.R
-import com.maulik.focusmode.dashboard.viewmodel.DashboardViewModel
+import com.maulik.focusmode.eventhandler.DashboardEventHandler
+import com.maulik.focusmode.viewmodel.DashboardViewModel
 import com.maulik.focusmode.databinding.ActivityDashboardBinding
-import com.maulik.focusmode.databinding.FocusModeSettingsBinding
-import com.maulik.focusmode.extensions.startActivity
-import com.maulik.focusmode.focusmodesettings.ui.FocusModeSettingsActivity
-import com.maulik.focusmode.focusmodesettings.viewmodel.FocusModeSettingsViewModel
+import com.maulik.focusmode.util.extensions.startActivity
 import com.maulik.focusmode.util.getFocusModePref
-import render.animations.Attention
 import render.animations.Bounce
 import render.animations.Render
 
-class DashboardActivity : AppCompatActivity(), DashboardEventHandler {
+class DashboardActivity : AppCompatActivity(),
+    DashboardEventHandler {
 
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel by viewModels<DashboardViewModel>()

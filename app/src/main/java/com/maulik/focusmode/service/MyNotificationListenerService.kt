@@ -1,4 +1,4 @@
-package com.maulik.focusmode
+package com.maulik.focusmode.service
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
