@@ -180,7 +180,6 @@
                     android:padding="@dimen/activity_margin"
                     android:text="@string/enable_silent_mode"
                     android:textSize="@dimen/_14sdp"
-                    android:checked="@={settingsViewModel.silentModeEnabled}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/switchNotifications" />

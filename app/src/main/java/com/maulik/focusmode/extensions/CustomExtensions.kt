@@ -66,12 +66,15 @@ fun Context.showToast(message: String, showLong: Boolean = false) {
 
 fun Context.toggleDnd(enable: Boolean) {
     val manager: NotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isNotificationPermissionAllowed()) {
         manager.setInterruptionFilter(if (enable) NotificationManager.INTERRUPTION_FILTER_NONE else NotificationManager.INTERRUPTION_FILTER_ALL)
     }
 }
 
 fun Context.toggleSilentMode(enable: Boolean) {
     val manager: AudioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-    manager.ringerMode = if (enable) AudioManager.RINGER_MODE_SILENT else AudioManager.RINGER_MODE_NORMAL
+    if (isNotificationPermissionAllowed()) {
+        manager.ringerMode =
+            if (enable) AudioManager.RINGER_MODE_SILENT else AudioManager.RINGER_MODE_NORMAL
+    }
 }

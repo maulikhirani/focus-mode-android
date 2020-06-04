@@ -33,6 +33,7 @@ class FocusModeStartStopJob: Job() {
                 val calendarCurrent = Calendar.getInstance()
                 calendarCurrent[Calendar.HOUR_OF_DAY] = calendarStartTime[Calendar.HOUR_OF_DAY]
                 calendarCurrent[Calendar.MINUTE] = calendarStartTime[Calendar.MINUTE]
+                calendarCurrent[Calendar.SECOND] = 0
 
                 val interval: Long
                 val isStartOfFocusMode: Boolean?
@@ -43,6 +44,7 @@ class FocusModeStartStopJob: Job() {
                 } else {
                     calendarCurrent[Calendar.HOUR_OF_DAY] = calendarEndTime[Calendar.HOUR_OF_DAY]
                     calendarCurrent[Calendar.MINUTE] = calendarEndTime[Calendar.MINUTE]
+                    calendarCurrent[Calendar.SECOND] = 0
 
                     if (currentTime.before(calendarCurrent.time)) {
                         //schedule end for focus mode
@@ -55,6 +57,7 @@ class FocusModeStartStopJob: Job() {
                         //schedule start for focus mode next day
                         calendarCurrent[Calendar.HOUR_OF_DAY] = calendarStartTime[Calendar.HOUR_OF_DAY]
                         calendarCurrent[Calendar.MINUTE] = calendarStartTime[Calendar.MINUTE]
+                        calendarCurrent[Calendar.SECOND] = 0
                         calendarCurrent.add(Calendar.DATE, 1)
 
                         isStartOfFocusMode = true
@@ -62,7 +65,6 @@ class FocusModeStartStopJob: Job() {
 
                 }
 
-                calendarCurrent[Calendar.SECOND] = 0
                 interval = calendarCurrent.timeInMillis - currentTime.time
                 Log.d("JOB", "scheduleJob: ${calendarCurrent.time}")
 

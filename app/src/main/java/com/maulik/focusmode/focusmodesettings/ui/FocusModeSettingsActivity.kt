@@ -11,6 +11,7 @@ import android.widget.CompoundButton
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import com.maulik.focusmode.R
 import com.maulik.focusmode.databinding.FocusModeSettingsBinding
@@ -59,7 +60,10 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
 
     override fun onResume() {
         super.onResume()
-        if (!isNotificationPermissionAllowed()) viewModel.notificationsDisabled.value = false
+        if (!isNotificationPermissionAllowed()) {
+            viewModel.notificationsDisabled.value = false
+            viewModel.silentModeEnabled.value = false
+        }
     }
 
     private fun setupNotifications() {
@@ -67,23 +71,39 @@ class FocusModeSettingsActivity : AppCompatActivity(), FocusModeSettingsEventHan
         viewModel.notificationsDisabled.observe(this, androidx.lifecycle.Observer {
             binding.switchNotifications.isChecked = it
         })
+        viewModel.silentModeEnabled.observe(this, androidx.lifecycle.Observer {
+            binding.switchRing.isChecked = it
+        })
 
-        binding.switchNotifications.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+        class OnCheckedChangeListener : CompoundButton.OnCheckedChangeListener {
             @RequiresApi(Build.VERSION_CODES.M)
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                val switch = buttonView as SwitchCompat
+
                 if (isChecked && !isNotificationPermissionAllowed()) {
-                    binding.switchNotifications.setOnCheckedChangeListener(null)
-                    viewModel.notificationsDisabled.value = false
-                    binding.switchNotifications.setOnCheckedChangeListener(this)
+                    switch.setOnCheckedChangeListener(null)
+                    if (switch.id == R.id.switchNotifications) {
+                        viewModel.notificationsDisabled.value = false
+                    } else {
+                        viewModel.silentModeEnabled.value = false
+                    }
+                    switch.setOnCheckedChangeListener(this)
 
                     showToast(getString(R.string.error_notifications))
                     val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
                     startActivityForResult(intent, 1)
                 } else {
-                    viewModel.notificationsDisabled.value = isChecked
+                    if (switch.id == R.id.switchNotifications) {
+                        viewModel.notificationsDisabled.value = isChecked
+                    } else {
+                        viewModel.silentModeEnabled.value = isChecked
+                    }
                 }
             }
-        })
+        }
+
+        binding.switchNotifications.setOnCheckedChangeListener(OnCheckedChangeListener())
+        binding.switchRing.setOnCheckedChangeListener(OnCheckedChangeListener())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
